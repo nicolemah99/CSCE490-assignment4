@@ -1,6 +1,6 @@
 from django.shortcuts import render
-
 from . import util
+from markdown2 import Markdown
 
 
 def index(request):
@@ -18,3 +18,6 @@ def wiki(request,title):
     else:
         return render(request, "encyclopedia/wiki.html",{"contents": contents, "title": title})
 
+def search(request):
+
+    return render(request, "encyclopedia/search.html")
