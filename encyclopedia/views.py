@@ -4,7 +4,12 @@ from . import util
 
 
 def index(request):
-    return render(request, "encyclopedia/index.html", {"entries": util.list_entries()})
+    links = {}
+    entries = util.list_entries()
+
+    for entry in entries:
+        links[entry] = "/wiki/"+entry
+    return render(request, "encyclopedia/index.html", {"entries": entries, "links":links})
 
 def wiki(request,title):
     contents = util.get_entry(title)
