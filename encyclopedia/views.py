@@ -55,7 +55,7 @@ def new_page(request):
         else:
             util.save_entry(title,content)
             html_content = convert_to_html(title)
-            return redirect("entry", {"title":title})
+            return render(request, "encyclopedia/page.html",{"title": title, "content":html_content})
 
 def edit(request):
     if request.method == "POST":
