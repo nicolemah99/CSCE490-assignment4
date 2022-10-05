@@ -31,7 +31,7 @@ def search(request):
         entry_search = request.POST['q']
         html_content = convert_to_html(entry_search)
         if html_content is not None:
-            return render(request, "encyclopedia/page.html",{"title":entry_search, "content": html_content})
+            return redirect("page", title= entry_search)
         else:
             all_entries = util.list_entries()
             search_results =[]
@@ -55,7 +55,7 @@ def new_page(request):
         else:
             util.save_entry(title,content)
             html_content = convert_to_html(title)
-            return render(request, "encyclopedia/page.html",{"title": title, "content":html_content})
+            return redirect("page", title= title)
 
 def edit(request):
     if request.method == "POST":
@@ -71,13 +71,13 @@ def save_edit(request):
         updated_content = request.POST['text']
         util.save_entry(title,updated_content)
         html_content = convert_to_html(title)
-        return render(request, "encyclopedia/page.html", {"title":title, "content": html_content})
+        return redirect("page", title=title)
 
 def random_page(request):
     all_entries = util.list_entries()
     rand_entry = random.choice(all_entries)
     html_content = convert_to_html(rand_entry)
-    return render(request, "encyclopedia/page.html", {"title": rand_entry, "content": html_content})
+    return redirect("page", title= rand_entry)
 
 def error(request):
     return render(request, 'encyclopedia/error.html')
